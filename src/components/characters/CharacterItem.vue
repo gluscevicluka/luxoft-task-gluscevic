@@ -1,41 +1,105 @@
 <template>
   <div class="max-w-sm rounded overflow-hidden shadow-lg mb-6">
-    <img
-      class="w-full"
-      src="https://v1.tailwindcss.com/img/card-top.jpg"
-      alt="Sunset in the mountains"
-    />
+    <img class="w-full" :src="this.image" :alt="this.name" />
     <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">Name</div>
+      <div class="font-bold text-xl mb-2">{{ this.name }}</div>
     </div>
     <div class="px-6 pt-4 pb-2">
-      <div>
-        Status:
-        <span
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-          >#photography</span
+      <div class="flex">
+        <div>Status:</div>
+        <div
+          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
+          :class="getStatusColor(this.status)"
         >
+          {{ this.status }}
+        </div>
       </div>
-      <div>
-        creation time:
-        <span
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-          >#photography</span
+      <div class="flex">
+        <div>Creation time:</div>
+        <div
+          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
         >
+          {{ formattedDate }}
+        </div>
       </div>
-      <div>
-        Location:
-        <span
-          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-          >#photography</span
+      <div class="flex">
+        <div>Location:</div>
+        <div
+          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
         >
+          {{ this.location }}
+        </div>
       </div>
       <router-link
         to="/"
-        class="block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded mt-6 w-full text-center uppercase"
+        class="block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded mt-6 w-full text-center uppercase"
       >
         More Details
       </router-link>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+    created: {
+      type: String,
+      required: true,
+    },
+    location: {
+      type: String,
+      required: true,
+    },
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    getStatusColor(status) {
+      switch (status.toLowerCase()) {
+        case "alive":
+          return "bg-green-500";
+
+        case "dead":
+          return "bg-red-500";
+
+        case "unknown":
+          return "bg-gray-500";
+
+        default:
+          return null;
+      }
+    },
+  },
+  computed: {
+    formattedDate() {
+      const date = new Date(this.create);
+
+      const options = {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      };
+      const formattedDate = date.toLocaleDateString("en-US", options);
+
+      return formattedDate;
+    },
+  },
+};
+</script>
