@@ -5,8 +5,9 @@
       <div class="font-bold text-xl mb-2">{{ this.name }}</div>
     </div>
     <div class="px-6 pt-4 pb-2">
-      <div class="flex">
+      <div class="flex items-center">
         <div>Status:</div>
+        &nbsp;
         <div
           class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
           :class="getStatusColor(this.status)"
@@ -31,7 +32,7 @@
         </div>
       </div>
       <router-link
-        to="/"
+        :to="'/character/' + this.id"
         class="block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded mt-6 w-full text-center uppercase"
       >
         More Details
@@ -41,8 +42,13 @@
 </template>
 
 <script>
+import { format } from "date-fns";
 export default {
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -86,17 +92,9 @@ export default {
   },
   computed: {
     formattedDate() {
-      const date = new Date(this.create);
+      const date = new Date(this.created);
 
-      const options = {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      };
-      const formattedDate = date.toLocaleDateString("en-US", options);
+      const formattedDate = format(date, "d. MMMM yyyy HH:mm:ss");
 
       return formattedDate;
     },

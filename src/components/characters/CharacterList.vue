@@ -1,10 +1,12 @@
 <template>
+  <Spinner/>
   <div
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 character-row"
   >
     <CharacterItem
       v-for="character in charactersData"
       :key="character.id"
+      :id="character.id"
       :name="character.name"
       :image="character.image"
       :created="character.created"
