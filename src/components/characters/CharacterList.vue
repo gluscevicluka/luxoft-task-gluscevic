@@ -100,10 +100,10 @@ export default {
             }
           })
           .catch((error) => {
-            this.error = {
-              header: error.response.data.error,
-              content: error.message,
-            };
+            // this.error = {
+            //   header: error.response.data.error,
+            //   content: error.message,
+            // };
           });
       }
     },
