@@ -1,5 +1,6 @@
 <template>
-  <div class="container my-12">
+  <Spinner v-if="isLoading" />
+  <div v-else class="container my-12">
     <h1 class="text-2xl font-bold text-center">Details</h1>
     <div class="max-w-2xl mx-auto p-4 mt-12 border border-black">
       <div
@@ -35,6 +36,12 @@
       </router-link>
     </div>
   </div>
+  <Modal
+    v-if="error"
+    :header="error.header"
+    :content="error.content"
+    @close-modal="closeModal()"
+  />
 </template>
 
 <script>
@@ -46,18 +53,25 @@ export default {
       characterData: null,
       api: "https://rickandmortyapi.com/api/character/",
       isLoading: false,
+      error: null,
     };
   },
   methods: {
     getCharacter() {
+      this.isLoading = true;
       const characterId = this.$route.params.id;
       axios
         .get(this.api + characterId)
         .then((response) => {
           this.characterData = response.data;
+          this.isLoading = false;
         })
         .catch((error) => {
-          console.log(error);
+          this.error = {
+            header: error.response.data.error,
+            content: error.message,
+          };
+          this.isLoading = false;
         });
     },
     getStatusClass(status) {
@@ -76,6 +90,10 @@ export default {
             return null;
         }
       }
+    },
+    closeModal() {
+      this.$emit("close-modal");
+      this.$router.push('/');
     },
   },
   computed: {

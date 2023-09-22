@@ -1,39 +1,42 @@
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg mb-6">
+  <div
+    class="max-w-sm rounded overflow-hidden shadow-lg mb-6 flex flex-col justify-between"
+  >
     <img class="w-full" :src="this.image" :alt="this.name" />
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ this.name }}</div>
-    </div>
-    <div class="px-6 pt-4 pb-2">
-      <div class="flex items-center">
-        <div>Status:</div>
-        &nbsp;
-        <div
-          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
-          :class="getStatusColor(this.status)"
-        >
-          {{ this.status }}
+      <div>
+        <div class="flex flex-col items-start mb-2">
+          <div>Status:</div>
+          <div
+            class="inline-block rounded-full py-1 px-3 text-sm font-semibold text-black-700 mr-2"
+            :class="getStatusColor(this.status)"
+          >
+            {{ this.status }}
+          </div>
         </div>
-      </div>
-      <div class="flex">
-        <div>Creation time:</div>
-        <div
-          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
-        >
-          {{ formattedDate }}
+        <hr class="border-t-2 border-gray-300 mx-auto  rounded-full animate-pulse" />
+        <div class="flex flex-col items-start mb-2">
+          <div>Creation time:</div>
+          <div
+            class="inline-block rounded-full py-1 text-sm font-semibold text-black-700 mr-2"
+          >
+            {{ formattedDate }}
+          </div>
         </div>
-      </div>
-      <div class="flex">
-        <div>Location:</div>
-        <div
-          class="inline-block rounded-full px-3 py-1 text-sm font-semibold text-black-700 mr-2 mb-2"
-        >
-          {{ this.location }}
+        <hr class="border-t-2 border-gray-300 mx-auto rounded-full animate-pulse" />
+        <div class="flex flex-col items-start mb-2">
+          <div>Location:</div>
+          <div
+            class="inline-block rounded-full py-1 text-sm font-semibold text-black-700 mr-2"
+          >
+            {{ this.location }}
+          </div>
         </div>
       </div>
       <router-link
         :to="'/character/' + this.id"
-        class="block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded mt-6 w-full text-center uppercase"
+        class="block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded text-center uppercase"
       >
         More Details
       </router-link>
@@ -101,3 +104,4 @@ export default {
   },
 };
 </script>
+

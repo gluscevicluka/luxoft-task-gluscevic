@@ -1,6 +1,7 @@
 <template>
-  <Spinner/>
+  <Spinner v-if="isLoading" />
   <div
+    v-else
     class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 character-row"
   >
     <CharacterItem
@@ -14,6 +15,12 @@
       :status="character.status"
     />
   </div>
+  <Modal
+    v-if="error"
+    :header="error.header"
+    :content="error.content"
+    @close-modal="closeModal()"
+  />
 </template>
 
 <script>
@@ -29,26 +36,49 @@ export default {
       api: "https://rickandmortyapi.com/api/character",
       isLoading: false,
       currentPage: 1,
+      error: null,
     };
   },
   methods: {
     getAllCharactersData() {
-      this.isLoading = true;
+      if (this.currentPage === 1) {
+        this.isLoading = true;
+      }
       axios
         .get(this.api + `?page=${this.currentPage}`)
         .then((response) => {
-          this.charactersData = response.data.results;
-          console.log(this.charactersData);
+          this.charactersData = [
+            ...this.charactersData,
+            ...response.data.results,
+          ];
           this.isLoading = false;
         })
         .catch((error) => {
-          console.log(error);
+          this.error = {
+            header: error.response.data.error,
+            content: error.message,
+          };
           this.isLoading = false;
         });
+    },
+    closeModal() {
+      this.error = null;
+      //...redirect to home page, but we have only one page :)
+    },
+    handleScroll() {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      if (scrollY + windowHeight >= documentHeight - 100) {
+        this.currentPage++;
+        this.getAllCharactersData();
+      }
     },
   },
   created() {
     this.getAllCharactersData();
+    window.addEventListener("scroll", this.handleScroll);
   },
 };
 </script>
