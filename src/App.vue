@@ -13,7 +13,5 @@ export default {
 </script>
 
 <style>
-img[alt="www.000webhost.com"] {
-  display: none !important;
-}
+
 </style>
