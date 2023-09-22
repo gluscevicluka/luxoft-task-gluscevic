@@ -6,8 +6,9 @@
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">{{ this.name }}</div>
       <div>
-        <div class="flex flex-col items-start mb-2">
+        <div class="flex items-start mb-2">
           <div>Status:</div>
+          &nbsp;
           <div
             class="inline-block rounded-full py-1 px-3 text-sm font-semibold text-black-700 mr-2"
             :class="getStatusColor(this.status)"

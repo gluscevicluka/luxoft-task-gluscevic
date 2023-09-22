@@ -1,7 +1,6 @@
 <template>
   <Spinner v-if="isLoading" />
-  <div v-else class="container my-12">
-    <h1 class="text-2xl font-bold text-center">Details</h1>
+  <div v-else class="px-6 my-12">
     <div class="max-w-2xl mx-auto p-4 mt-12 border border-black">
       <div
         class="bg-white shadow-md rounded-lg p-6 flex flex-col justify-center items-center text-center"
@@ -93,7 +92,7 @@ export default {
     },
     closeModal() {
       this.$emit("close-modal");
-      this.$router.push('/');
+      this.$router.push("/");
     },
   },
   computed: {

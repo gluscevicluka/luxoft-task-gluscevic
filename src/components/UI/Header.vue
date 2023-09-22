@@ -38,7 +38,7 @@
 
       <!-- Navigation links -->
       <div
-        class="!visible hidden grow basis-[100%] items-center lg:!flex lg:basis-auto"
+        class="!visible hidden grow basis-[100%] items-center lg:!flex lg:basis-auto justify-center"
         id="navbarSupportedContentX"
         data-te-collapse-item
       >
@@ -61,4 +61,8 @@
       </div>
     </div>
   </nav>
+  <div class="bg-gray-200 py-16 text-center">
+    <h1 class="text-4xl font-extrabold text-gray-800 mb-4">Rick and Morty</h1>
+    <p class="text-lg text-gray-600">Welcome to the world of Rick and Morty</p>
+  </div>
 </template>
