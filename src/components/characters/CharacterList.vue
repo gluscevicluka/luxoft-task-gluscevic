@@ -1,7 +1,7 @@
 <template>
   <Spinner v-if="isLoading" />
   <div v-else>
-    <div class="flex items-center justify-end">
+    <div class="flex justify-center items-center">
       <input
         @input="searchByName()"
         v-model="name"
